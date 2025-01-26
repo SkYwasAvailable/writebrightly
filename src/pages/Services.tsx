@@ -11,9 +11,9 @@ const Services = () => {
           <h1 className="text-4xl font-bold text-center mb-12">Our Services</h1>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Feedback Only */}
+            {/* Highlighting Only */}
             <div className="bg-white p-8 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-              <h2 className="text-2xl font-bold mb-4">Feedback Only</h2>
+              <h2 className="text-2xl font-bold mb-4">Highlighting Only</h2>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start">
                   <Check className="w-5 h-5 text-primary mt-1 mr-2" />
@@ -29,17 +29,17 @@ const Services = () => {
                 </li>
               </ul>
               <Link to="/submit">
-                <Button className="w-full" variant="outline">Choose Feedback</Button>
+                <Button className="w-full" variant="outline">Choose Highlighting</Button>
               </Link>
             </div>
 
-            {/* Feedback + Humanizing */}
+            {/* Highlighting + Humanizing */}
             <div className="bg-white p-8 rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-              <h2 className="text-2xl font-bold mb-4">Feedback + Humanizing</h2>
+              <h2 className="text-2xl font-bold mb-4">Highlighting + Humanizing</h2>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start">
                   <Check className="w-5 h-5 text-primary mt-1 mr-2" />
-                  <span>All Feedback features</span>
+                  <span>All Highlighting features</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="w-5 h-5 text-primary mt-1 mr-2" />
@@ -55,7 +55,7 @@ const Services = () => {
                 </li>
               </ul>
               <Link to="/submit">
-                <Button className="w-full">Choose Feedback + Humanizing</Button>
+                <Button className="w-full">Choose Highlighting + Humanizing</Button>
               </Link>
             </div>
           </div>
