@@ -222,7 +222,7 @@ const Submit = () => {
               <li>Open your document in Google Docs</li>
               <li>Click on the Share button in the top-right corner</li>
               <li>Under General Access, select "Anyone with the link"</li>
-              <li>Set the access to Viewer or Editor, as required</li>
+              <li>Set the access to Editor, as required</li>
             </ol>
           </div>
 
