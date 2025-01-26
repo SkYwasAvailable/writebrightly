@@ -25,11 +25,10 @@ const formSchema = z.object({
   documentLink: z.string().url(),
   specialInstructions: z.string().optional(),
 }).refine((data) => {
-  // At least one contact method must be provided
   return data.discordUsername || data.email || data.phoneNumber;
 }, {
   message: "At least one contact method is required",
-  path: ["discordUsername"], // This will show the error under the discord field
+  path: ["discordUsername"],
 });
 
 const Submit = () => {
@@ -42,7 +41,7 @@ const Submit = () => {
       discordUsername: "",
       email: "",
       phoneNumber: "",
-      serviceType: "feedback", // Changed from "highlighting" to "feedback"
+      serviceType: "feedback",
       documentLink: "",
       specialInstructions: "",
     },
@@ -50,18 +49,37 @@ const Submit = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
-    console.log(values);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Request Submitted!",
-      description: "We will contact you shortly.",
-    });
-    
-    setIsSubmitting(false);
-    form.reset();
+    try {
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => {
+        if (value) formData.append(key, value);
+      });
+
+      const response = await fetch('https://formsubmit.co/your-email@domain.com', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Request Submitted!",
+          description: "We will contact you shortly.",
+        });
+        form.reset();
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit request. Please try again.",
+        variant: "destructive",
+      });
+      console.error('Submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
