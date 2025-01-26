@@ -1,236 +1,125 @@
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { InfoIcon, MessageSquare, Mail, Phone } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { PageTransition } from "@/components/PageTransition";
-
-const formSchema = z.object({
-  discordUsername: z.string().optional(),
-  email: z.string().email().optional(),
-  phoneNumber: z.string().min(10).optional(),
-  serviceType: z.enum(["highlighting", "both"]),
-  documentLink: z.string().url(),
-  specialInstructions: z.string().optional(),
-}).refine((data) => {
-  // At least one contact method must be provided
-  return data.discordUsername || data.email || data.phoneNumber;
-}, {
-  message: "At least one contact method is required",
-  path: ["discordUsername"], // This will show the error under the discord field
-});
+import { InfoIcon } from "lucide-react";
 
 const Submit = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      discordUsername: "",
-      email: "",
-      phoneNumber: "",
-      serviceType: "highlighting",
-      documentLink: "",
-      specialInstructions: "",
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    console.log(values);
     
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
       title: "Request Submitted!",
-      description: "We will contact you shortly.",
+      description: "We will contact you on Discord shortly.",
     });
     
     setIsSubmitting(false);
-    form.reset();
+    (e.target as HTMLFormElement).reset();
   };
 
   return (
-    <PageTransition>
-      <div className="pt-24 pb-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-center mb-12">Submit Your Request</h1>
-          
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* Contact Methods Section */}
-              <div className="bg-gray-50 p-6 rounded-lg border space-y-6">
-                <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-semibold">Contact Methods</h2>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <InfoIcon className="w-4 h-4 text-gray-500" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>At least one contact method is required</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
+    <div className="pt-24 pb-20">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-bold text-center mb-12">Submit Your Request</h1>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Discord Username */}
+          <div className="space-y-2">
+            <label htmlFor="discord" className="block font-medium">
+              Discord Username
+            </label>
+            <Input
+              id="discord"
+              placeholder="e.g., sphericexo"
+              required
+            />
+          </div>
 
-                {/* Discord Username */}
-                <FormField
-                  control={form.control}
-                  name="discordUsername"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <MessageSquare className="w-4 h-4" />
-                        Discord Username
-                      </FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., sphericexo" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          {/* Service Type */}
+          <div className="space-y-2">
+            <label htmlFor="service" className="block font-medium">
+              Service Type
+            </label>
+            <Select required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a service" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="highlighting">Highlighting Only</SelectItem>
+                <SelectItem value="both">Highlighting + Humanizing</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-                {/* Email */}
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        Email
-                      </FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="your@email.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+          {/* Document Link */}
+          <div className="space-y-2">
+            <label htmlFor="link" className="block font-medium">
+              Document Link
+            </label>
+            <Input
+              id="link"
+              placeholder="Paste your file link (Google Docs, Dropbox, etc.) here"
+              required
+            />
+          </div>
 
-                {/* Phone Number */}
-                <FormField
-                  control={form.control}
-                  name="phoneNumber"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Phone className="w-4 h-4" />
-                        Phone Number
-                      </FormLabel>
-                      <FormControl>
-                        <Input type="tel" placeholder="+1 (555) 000-0000" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+          {/* Sharing Instructions */}
+          <div className="bg-gray-50 p-4 rounded-lg border space-y-2">
+            <div className="flex items-center space-x-2 text-sm font-medium text-gray-800">
+              <InfoIcon className="w-4 h-4" />
+              <span>How to share your Google Docs file:</span>
+            </div>
+            <ol className="list-decimal list-inside text-sm text-gray-600 space-y-1">
+              <li>Open your document in Google Docs</li>
+              <li>Click on the Share button in the top-right corner</li>
+              <li>Under General Access, select "Anyone with the link"</li>
+              <li>Set the access to Viewer or Editor, as required</li>
+            </ol>
+          </div>
 
-              {/* Service Type */}
-              <FormField
-                control={form.control}
-                name="serviceType"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Service Type</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-1"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="highlighting" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Highlighting Only
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="both" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Highlighting + Humanizing
-                          </FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          {/* Special Instructions */}
+          <div className="space-y-2">
+            <label htmlFor="instructions" className="block font-medium">
+              Special Instructions (Optional)
+            </label>
+            <Textarea
+              id="instructions"
+              placeholder="Add any additional requirements or notes here"
+              className="min-h-[100px]"
+            />
+          </div>
 
-              {/* Document Link */}
-              <FormField
-                control={form.control}
-                name="documentLink"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Document Link</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Paste your file link (Google Docs, Dropbox, etc.) here" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          {/* Disclaimer */}
+          <p className="text-sm text-gray-600">
+            We value your privacy. Your documents are confidential and handled by experts with experience in AI detection.
+          </p>
 
-              {/* Special Instructions */}
-              <FormField
-                control={form.control}
-                name="specialInstructions"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Special Instructions (Optional)</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Add any additional requirements or notes here"
-                        className="min-h-[100px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Submitting..." : "Submit Request"}
-              </Button>
-
-              {/* Disclaimer */}
-              <p className="text-sm text-gray-600">
-                We value your privacy. Your documents are confidential and handled by experts with experience in AI detection.
-              </p>
-            </form>
-          </Form>
-        </div>
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Request"}
+          </Button>
+        </form>
       </div>
-    </PageTransition>
+    </div>
   );
 };
 

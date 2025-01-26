@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, FileText, Shield, Zap, MessageSquare } from "lucide-react";
+import { CheckCircle, FileText, Shield, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
 
@@ -64,19 +64,12 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex justify-center gap-4"
             >
               <Link to="/services">
                 <Button size="lg" variant="secondary">
                   Get Started
                 </Button>
               </Link>
-              <a href="https://discord.gg/your-server" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20">
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  Join Discord
-                </Button>
-              </a>
             </motion.div>
           </div>
         </section>
