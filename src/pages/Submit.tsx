@@ -42,7 +42,7 @@ const Submit = () => {
       discordUsername: "",
       email: "",
       phoneNumber: "",
-      serviceType: "highlighting",
+      serviceType: "feedback", // Changed from "highlighting" to "feedback"
       documentLink: "",
       specialInstructions: "",
     },
