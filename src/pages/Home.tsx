@@ -50,7 +50,7 @@ const Home = () => {
               transition={{ duration: 0.5 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
             >
-              Expert Highlighting and Humanizing Services for Your Documents!
+              Expert Feedback and Humanizing Services for Your Documents!
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}

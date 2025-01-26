@@ -21,7 +21,7 @@ const formSchema = z.object({
   discordUsername: z.string().optional(),
   email: z.string().email().optional(),
   phoneNumber: z.string().min(10).optional(),
-  serviceType: z.enum(["highlighting", "both"]),
+  serviceType: z.enum(["feedback", "both"]),
   documentLink: z.string().url(),
   specialInstructions: z.string().optional(),
 }).refine((data) => {
@@ -158,10 +158,10 @@ const Submit = () => {
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="highlighting" />
+                            <RadioGroupItem value="feedback" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            Highlighting Only
+                            Feedback Only
                           </FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
@@ -169,7 +169,7 @@ const Submit = () => {
                             <RadioGroupItem value="both" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            Highlighting + Humanizing
+                            Feedback + Humanizing
                           </FormLabel>
                         </FormItem>
                       </RadioGroup>
