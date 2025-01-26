@@ -17,7 +17,7 @@ export const Navigation = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-center flex-1 space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             <Link to="/" className="text-gray-700 hover:text-primary px-3 py-2">Home</Link>
             <Link to="/services" className="text-gray-700 hover:text-primary px-3 py-2">Services</Link>
             <Link to="/submit">

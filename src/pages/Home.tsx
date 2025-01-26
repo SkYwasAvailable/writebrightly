@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, FileText, Shield, Zap, MessageSquare } from "lucide-react";
-import { motion } from "framer-motion";
-import { PageTransition } from "@/components/PageTransition";
+import { CheckCircle, FileText, Shield, Zap } from "lucide-react";
 
 const features = [
   {
@@ -29,127 +27,64 @@ const features = [
 
 const Home = () => {
   return (
-    <PageTransition>
-      <div className="pt-16">
-        {/* Hero Section */}
-        <section className="hero-gradient text-white py-20 sm:py-32 relative overflow-hidden">
-          {/* Hero pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <pattern id="hero-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="1" fill="currentColor" />
-              </pattern>
-              <rect width="100" height="100" fill="url(#hero-pattern)" />
-            </svg>
-          </div>
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
-            >
-              Expert Feedback and Humanizing Services for Your Documents!
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto"
-            >
-              Refining your content to stand out with clarity and precision.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex justify-center gap-4"
-            >
-              <Link to="/services">
-                <Button size="lg" variant="secondary">
-                  Get Started
-                </Button>
-              </Link>
-              <a href="https://discord.gg/your-server" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20">
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  Join Discord
-                </Button>
-              </a>
-            </motion.div>
-          </div>
-        </section>
+    <div className="pt-16">
+      {/* Hero Section */}
+      <section className="hero-gradient text-white py-20 sm:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+            Expert Highlighting and Humanizing Services for Your Documents!
+          </h1>
+          <p className="text-lg sm:text-xl mb-8 max-w-2xl mx-auto">
+            Refining your content to stand out with clarity and precision.
+          </p>
+          <Link to="/services">
+            <Button size="lg" variant="secondary">
+              Get Started
+            </Button>
+          </Link>
+        </div>
+      </section>
 
-        {/* Features Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.h2 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-3xl font-bold text-center mb-12"
-            >
-              Key Features
-            </motion.h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white p-6 rounded-lg shadow-sm border hover:shadow-md transition-shadow"
-                >
-                  <feature.icon className="w-12 h-12 text-primary mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </motion.div>
-              ))}
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="bg-white p-6 rounded-lg shadow-sm border hover:shadow-md transition-shadow"
+              >
+                <feature.icon className="w-12 h-12 text-primary mb-4" />
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm border">
+              <p className="text-gray-600 mb-4">
+                "Amazing service—my documents are better than ever! The team provided excellent feedback and improvements."
+              </p>
+              <p className="font-semibold">- Sarah J.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm border">
+              <p className="text-gray-600 mb-4">
+                "Super fast and professional! They helped me improve my content while maintaining my original voice."
+              </p>
+              <p className="font-semibold">- Michael R.</p>
             </div>
           </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.h2 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-3xl font-bold text-center mb-12"
-            >
-              What Our Clients Say
-            </motion.h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="bg-white p-6 rounded-lg shadow-sm border"
-              >
-                <p className="text-gray-600 mb-4">
-                  "Amazing service—my documents are better than ever! The team provided excellent feedback and improvements."
-                </p>
-                <p className="font-semibold">- Sarah J.</p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="bg-white p-6 rounded-lg shadow-sm border"
-              >
-                <p className="text-gray-600 mb-4">
-                  "Super fast and professional! They helped me improve my content while maintaining my original voice."
-                </p>
-                <p className="font-semibold">- Michael R.</p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </PageTransition>
+        </div>
+      </section>
+    </div>
   );
 };
 
