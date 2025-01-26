@@ -56,7 +56,7 @@ const Submit = () => {
         if (value) formData.append(key, value);
       });
 
-      const response = await fetch('https://formsubmit.co/2acfcbc50d1e377e5dd580953bb71f20', {
+      const response = await fetch('https://formsubmit.co/work.kashyap29@gmail.com', {
         method: 'POST',
         body: formData,
       });
