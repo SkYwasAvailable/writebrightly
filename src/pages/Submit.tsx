@@ -212,6 +212,40 @@ const Submit = () => {
                 )}
               />
 
+              {/* Sharing Instructions */}
+              <FormField
+                control={form.control}
+                name="documentLink"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>Sharing Instructions</FormLabel>
+                    <div className="bg-gray-50 p-4 rounded-lg border space-y-2">
+                      <div className="flex items-center space-x-2 text-sm font-medium text-gray-800">
+                        <InfoIcon className="w-4 h-4" />
+                        <span>How to share your Google Docs file:</span>
+                      </div>
+                      <ol className="list-decimal list-inside text-sm text-gray-600 space-y-1">
+                        <li>Open your document in Google Docs.</li>
+                        <li>Click on the <b>Share</b> button in the top-right corner.</li>
+                        <li>
+                          Under <b>General Access</b>, select <b>"Anyone with the link"</b>.
+                        </li>
+                        <li>
+                          Choose the appropriate access level:
+                          <ul className="list-disc list-inside ml-4">
+                            <li><b>Viewer</b>: If you only want us to review the document.</li>
+                            <li><b>Editor</b>: If edits or comments are required.</li>
+                          </ul>
+                        </li>
+                        <li>Copy the link and paste it into the "Document Link" field above.</li>
+                      </ol>
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+
+
               {/* Special Instructions */}
               <FormField
                 control={form.control}
